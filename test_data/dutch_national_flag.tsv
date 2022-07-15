@@ -1,6 +1,4 @@
 array(int)	int	void
-[2,1,0,2,1,0]	2	anshul_test
-[2,1,2,1,1,1,2]	0	anshul_only2_elements
 [0, 1, 1, 2]	2	Basic test, unchanged
 [1, 1, 0, 2]	1	Basic test, one swap
 [1]	0	Corner-case input: single entry
