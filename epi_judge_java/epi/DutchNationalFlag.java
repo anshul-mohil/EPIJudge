@@ -12,46 +12,85 @@ import java.util.List;
 public class DutchNationalFlag {
     public enum Color {RED, WHITE, BLUE}
 
+    public static void dutchFlagPartition(int pivotIndex, List<Color> a) {
+        int pE = a.get(pivotIndex).ordinal();
+        int minI = 0;
+        int maxI = a.size() - 1;
+        int eqI = minI;
+
+        while(eqI<=maxI){
+            int eqE=a.get(eqI).ordinal();
+            if(eqE<pE){
+                Collections.swap(a,minI++,eqI++);
+            } else if (eqE==pE) {
+                eqI++;
+            } else {
+//                 else if (eqE>pE) {3
+                Collections.swap(a,eqI,maxI--);
+            }
+        }
+    }
+    //Same algorithm implemented in the book.
+    public static void dutchFlagPartition_same_but_confusing(int pivotIndex, List<Color> a) {
+        int pE = a.get(pivotIndex).ordinal();
+        int minI = 0;
+        int maxI = a.size();
+        int eqI = minI;
+
+        while(eqI<maxI){
+            int eqE=a.get(eqI).ordinal();
+            if(eqE<pE){
+                Collections.swap(a,minI++,eqI++);
+            } else if (eqE==pE) {
+                eqI++;
+            } else {
+//                 else if (eqE>pE) {3
+                Collections.swap(a,eqI,--maxI);
+            }
+        }
+    }
     //O(n) or O(2n) implementation
-    public static void dutchFlagPartition(int pivotIndex, List<Color> A) {
+    public static void dutchFlagPartition_OrderOfN(int pivotIndex, List<Color> A) {
         // TODO - you fill in here.
         int pivotElem = A.get(pivotIndex).ordinal();
         int smallI = 0;
         for (int i = 0; i < A.size(); i++)
-                if (A.get(i).ordinal() < pivotElem)
-                    Collections.swap(A, i, smallI++);
-        int maxI=A.size()-1;
+            if (A.get(i).ordinal() < pivotElem)
+                Collections.swap(A, i, smallI++);
+        int maxI = A.size() - 1;
         for (int i = A.size() - 1; i >= 0 && A.get(i).ordinal() >= pivotElem; i--)
-                if (A.get(i).ordinal() > pivotElem)
-                    Collections.swap(A, i, maxI--);
+            if (A.get(i).ordinal() > pivotElem)
+                Collections.swap(A, i, maxI--);
     }
+
     // O(n^2) implementation.
-  public static void dutchFlagPartition_On2(int pivotIndex, List<Color> A) {
-    // TODO - you fill in here.
-    int pivotElem = A.get(pivotIndex).ordinal();
+    public static void dutchFlagPartition_On2(int pivotIndex, List<Color> A) {
+        // TODO - you fill in here.
+        int pivotElem = A.get(pivotIndex).ordinal();
 
-    for (int i = 0; i < A.size(); ++i) {
-      for (int j = i + 1; j < A.size(); ++j) {
-        if (A.get(j).ordinal() < pivotElem) {
-          Collections.swap(A, i, j);
-          break;
+        for (int i = 0; i < A.size(); ++i) {
+            for (int j = i + 1; j < A.size(); ++j) {
+                if (A.get(j).ordinal() < pivotElem) {
+                    Collections.swap(A, i, j);
+                    break;
+                }
+            }
         }
-      }
+
+        for (int i = A.size() - 1; i >= 0 && A.get(i).ordinal() >= pivotElem; --i) {
+            for (int j = i - 1; j >= 0 && A.get(j).ordinal() >= pivotElem; --j) {
+                if (A.get(j).ordinal() > pivotElem) {
+                    Collections.swap(A, i, j);
+                    break;
+                }
+            }
+        }
+        for (Color a : A) {
+            System.out.println(a.ordinal());
+            System.out.println(a);
+        }
     }
 
-    for (int i = A.size() - 1; i >= 0 && A.get(i).ordinal() >= pivotElem; --i) {
-      for (int j = i - 1; j >= 0 && A.get(j).ordinal() >= pivotElem; --j) {
-        if (A.get(j).ordinal() > pivotElem) {
-          Collections.swap(A, i, j);
-          break;
-        }
-      }
-    }
-      for (Color a:A) {
-          System.out.println(a.ordinal());
-          System.out.println(a);
-      }
-  }
     @EpiTest(testDataFile = "dutch_national_flag.tsv")
     public static void dutchFlagPartitionWrapper(TimedExecutor executor,
                                                  List<Integer> A, int pivotIdx)
