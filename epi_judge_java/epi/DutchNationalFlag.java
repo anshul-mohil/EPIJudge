@@ -13,6 +13,22 @@ public class DutchNationalFlag {
     public enum Color {RED, WHITE, BLUE}
 
     public static void dutchFlagPartition(int pivotIndex, List<Color> a) {
+        int minI, minUk, maxI;
+        minI = minUk = 0;
+        maxI = a.size() - 1;
+         int pElem = a.get(pivotIndex).ordinal();
+         while(minUk<=maxI){
+             int currElem = a.get(minUk).ordinal();
+             if(currElem<pElem)
+                 Collections.swap(a,minI++,minUk++);
+             else if(currElem==pElem)
+                 minUk++;
+             else
+                 Collections.swap(a,minUk,maxI--);
+         }
+    }
+
+        public static void dutchFlagPartition_R1(int pivotIndex, List<Color> a) {
         int pE = a.get(pivotIndex).ordinal();
         int minI = 0;
         int maxI = a.size() - 1;
@@ -37,18 +53,19 @@ public class DutchNationalFlag {
         int maxI = a.size();
         int eqI = minI;
 
-        while(eqI<maxI){
-            int eqE=a.get(eqI).ordinal();
-            if(eqE<pE){
-                Collections.swap(a,minI++,eqI++);
-            } else if (eqE==pE) {
+        while (eqI < maxI) {
+            int eqE = a.get(eqI).ordinal();
+            if (eqE < pE) {
+                Collections.swap(a, minI++, eqI++);
+            } else if (eqE == pE) {
                 eqI++;
             } else {
 //                 else if (eqE>pE) {3
-                Collections.swap(a,eqI,--maxI);
+                Collections.swap(a, eqI, --maxI);
             }
         }
     }
+
     //O(n) or O(2n) implementation
     public static void dutchFlagPartition_OrderOfN(int pivotIndex, List<Color> A) {
         // TODO - you fill in here.
