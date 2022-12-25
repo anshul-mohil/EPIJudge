@@ -12,6 +12,7 @@ import java.util.List;
 public class DutchNationalFlag {
     public enum Color {RED, WHITE, BLUE}
 
+    //2022 Dec attempt
     public static void dutchFlagPartition(int pivotIndex, List<Color> a) {
         int pivotElem = a.get(pivotIndex).ordinal();
         int currIdx=0;
@@ -30,6 +31,22 @@ public class DutchNationalFlag {
         }
     }
 
+    //2022 July Impl, 1st attempt
+    public static void dutchFlagPartition_july(int pivotIndex, List<Color> a) {
+        int minI, minUk, maxI;
+        minI = minUk = 0;
+        maxI = a.size() - 1; #testing comment
+        int pElem = a.get(pivotIndex).ordinal();
+        while(minUk<=maxI){
+            int currElem = a.get(minUk).ordinal();
+            if(currElem<pElem)
+                Collections.swap(a,minI++,minUk++);
+            else if(currElem==pElem)
+                minUk++;
+            else
+                Collections.swap(a,minUk,maxI--);
+        }
+    }
    //Same algorithm implemented in the book.
     public static void dutchFlagPartition_same_but_confusing(int pivotIndex, List<Color> a) {
         int pE = a.get(pivotIndex).ordinal();
