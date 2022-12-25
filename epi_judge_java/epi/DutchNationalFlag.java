@@ -13,24 +13,24 @@ public class DutchNationalFlag {
     public enum Color {RED, WHITE, BLUE}
 
     public static void dutchFlagPartition(int pivotIndex, List<Color> a) {
-        int pE = a.get(pivotIndex).ordinal();
-        int minI = 0;
-        int maxI = a.size() - 1;
-        int eqI = minI;
+        int pivotElem = a.get(pivotIndex).ordinal();
+        int currIdx=0;
+        int minIdx=currIdx;
+        int lastIdx=a.size()-1;
+        while(currIdx<=lastIdx){
+            //Oder of the conditions doesn't matter
+            int currElem = a.get(currIdx).ordinal();
 
-        while(eqI<=maxI){
-            int eqE=a.get(eqI).ordinal();
-            if(eqE<pE){
-                Collections.swap(a,minI++,eqI++);
-            } else if (eqE==pE) {
-                eqI++;
-            } else {
-//                 else if (eqE>pE) {3
-                Collections.swap(a,eqI,maxI--);
-            }
+            if(currElem<pivotElem)
+                Collections.swap(a,currIdx++, minIdx++);
+            else if(currElem==pivotElem)
+                currIdx++;
+            else Collections.swap(a,currIdx,lastIdx--);
+            //else if(currElem>pivotElem) //explicit condition
         }
     }
-    //Same algorithm implemented in the book.
+
+   //Same algorithm implemented in the book.
     public static void dutchFlagPartition_same_but_confusing(int pivotIndex, List<Color> a) {
         int pE = a.get(pivotIndex).ordinal();
         int minI = 0;
@@ -130,6 +130,7 @@ public class DutchNationalFlag {
             throw new TestFailure("Some elements are missing from original array");
         }
     }
+
 
     public static void main(String[] args) {
         System.exit(
