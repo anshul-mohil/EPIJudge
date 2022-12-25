@@ -35,7 +35,7 @@ public class DutchNationalFlag {
     public static void dutchFlagPartition_july(int pivotIndex, List<Color> a) {
         int minI, minUk, maxI;
         minI = minUk = 0;
-        maxI = a.size() - 1; #testing comment
+        maxI = a.size() - 1;
         int pElem = a.get(pivotIndex).ordinal();
         while(minUk<=maxI){
             int currElem = a.get(minUk).ordinal();
