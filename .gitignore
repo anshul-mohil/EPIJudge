@@ -1,6 +1,6 @@
 # JetBrains IDEs (CLion, IntelliJ, and PyCharm)
 .idea
-problem_mapping.js
+#problem_mapping.js
 # CLIion CMake builds
 cmake-build-debug
 
